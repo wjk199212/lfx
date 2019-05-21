@@ -11,3 +11,4 @@
 //改变登录的路由  method可支持多种请求
 Route::rule('login', 'admin/Login/in')->method('GET,POST');
 
+Route::get('admin1', 'admin/Index/index');
