@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加分类</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/ui/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/ui/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/ui/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/ui/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="container wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加分类<small</small></h5>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" action="" id="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级分类</label>
+                            <div class="col-sm-10">
+                                <input autocomplete="off" type="text" value="{$parentName}" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">分类名称</label>
+                            <div class="col-sm-10">
+                                <input autocomplete="off" type="text" name="name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <input type="hidden" name="pid" value="{$pid}">
+                                <button class="btn btn-primary" id="btn" type="button">确认添加</button>
+                                <button class="btn btn-white" onclick="history.back(-1);" type="submit">返回分类列表</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/ui/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/ui/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/static/ui/js/plugins/layer/layer.min.js"></script>
+<script>
+
+    $('#btn').click(function () {
+
+        var data = $('#form').serialize();
+
+        $.post('', data, function (e) {
+
+            // console.log(e);
+
+            if (e.code) {
+                $('input[name=name]').val('');
+                layer.alert(e.msg, {icon: 1})
+            }else{
+                layer.alert(e.msg, {icon: 2})
+            }
+
+        })
+    })
+
+</script>
+
+</body>
+
+</html>
