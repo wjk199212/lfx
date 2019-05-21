@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加分类</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    {include file='common/css'}
+
+</head>
+
+<body class="gray-bg">
+<div class="container wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox-content">
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>分类名称</th>
+                        <th>添加下级</th>
+                        <th>查看下级</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {foreach $list as $v}
+
+                    <tr>
+                        <td>{$v.id}</td>
+                        <td>{$v.name}</td>
+                        <td><a href="{:url('admin/Index/addCategory', ['id'=>$v['id']])}">添加</a></td>
+                        <td><a data-id="{$v.id}" class="point-e children" data-op="plus"><i class="fa fa-plus"></i></a></td>
+                    </tr>
+
+                    {/foreach}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='common/js'}
+
+<script>
+
+    $('.ibox-content').on('click', '.children', function () {
+
+        var i = $(this);
+        var pid = i.attr('data-id');
+
+        var op = i.attr('data-op');
+
+        if (op == 'plus'){
+
+            i.attr('data-op', 'minus');
+            i.html('<i class="fa fa-minus"></i>');
+
+            $.get('', {id: pid}, function (e) {
+                if (e){
+                    $('.x'+pid).remove();
+                    i.parent().parent().after(e);
+                }
+            })
+
+        }else{
+            i.attr('data-op', 'plus');
+            i.html('<i class="fa fa-plus"></i>');
+            $('.x'+pid).remove();
+        }
+
+
+
+
+
+
+    });
+
+</script>
+</body>
+
+</html>

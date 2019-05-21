@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -8,11 +9,7 @@
     <title>添加分类</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="/static/ui/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/static/ui/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/ui/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="/static/ui/css/style.css?v=4.1.0" rel="stylesheet">
+    {include file='common/css'}
 
 </head>
 
@@ -47,7 +44,7 @@
                             <div class="col-sm-4 col-sm-offset-2">
                                 <input type="hidden" name="pid" value="{$pid}">
                                 <button class="btn btn-primary" id="btn" type="button">确认添加</button>
-                                <button class="btn btn-white" onclick="history.back(-1);" type="submit">返回分类列表</button>
+                                <button class="btn btn-white" onclick="history.back(-1);" type="button">返回分类列表</button>
                             </div>
                         </div>
                     </form>
@@ -57,9 +54,7 @@
     </div>
 </div>
 
-<script src="/static/ui/js/jquery.min.js?v=2.1.4"></script>
-<script src="/static/ui/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="/static/ui/js/plugins/layer/layer.min.js"></script>
+{include file='common/js'}
 <script>
 
     $('#btn').click(function () {
@@ -68,7 +63,7 @@
 
         $.post('', data, function (e) {
 
-            // console.log(e);
+            console.log(e);
 
             if (e.code) {
                 $('input[name=name]').val('');

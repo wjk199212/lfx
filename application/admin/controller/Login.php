@@ -7,6 +7,8 @@
  */
 namespace app\admin\controller;
 
+use app\admin\model\admin;
+use app\admin\model\article;
 use think\Controller;
 
 class Login extends Controller{
@@ -43,8 +45,10 @@ class Login extends Controller{
              return $this->error($val);
          }
 //         DB获取数据库
-           $admin= \think\Db::table('admin')->where('mobile',$data['mobile'])->find();
-//         $admin= admin::where('mobile',$data['mobile'])->find();
+//           $admin= \think\Db::table('admin')->where('mobile',$data['mobile'])->find();
+
+         $admin= admin::where('mobile',$data['mobile'])->find();
+
 //         如果在数据库中没找到用户名就输出错误信息
          if (!$admin){
              $this->error('您输入的账户密码有误');
