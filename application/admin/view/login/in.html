@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>H+ 后台主题UI框架 - 登录</title>
+    <title>老凤祥后台登录系统</title>
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
     <link href="/static/ui/css/bootstrap.min.css" rel="stylesheet">
@@ -55,26 +54,18 @@
 <!--给btn添加点击事件-->
 $('#btn').click(function () {
     //serialize() 方法通过序列化表单值，序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
-    var data = $('#form').serialize()
-    $.post('',data,function (e) {
+    var data = $('#form').serialize();
+
+    $.post('', data, function (e) {
+        console.log(e)
         if (e.code){
-
-        } else{
-            layer.alert('e.msg',{icon:6})
+            location.href = e.url;
+        }else{
+            layer.alert(e.msg, {icon: 2})
         }
-
     })
 
 })
-
-
-
-
-
-
-
-
-
 
 </script>
 

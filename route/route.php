@@ -8,13 +8,6 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+//改变登录的路由  method可支持多种请求
+Route::rule('login', 'admin/Login/in')->method('GET,POST');
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
-});
-
-Route::get('hello/:name', 'index/hello');
-
-return [
-
-];
