@@ -61,7 +61,6 @@ class Login extends Controller{
          }else{
              $this->error('您输入的账户密码有误');
          }
-
         }
 //        处理get请求
         if ($res->isGet()){

@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>添加文章</title>
@@ -17,7 +20,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>添加文章<small</small></h5>
+                    <h5>添加文章</small></h5>
                 </div>
                 <div class="ibox-content">
                     <form method="post" action="" id="form" class="form-horizontal">
@@ -26,7 +29,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">标题</label>
                             <div class="col-sm-10">
-                                <input autocomplete="off" type="text" name="title" class="form-control">
+                                <input autocomplete="off" type="text" name="title" class="form-control" value="{$b['title']}">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -36,9 +39,9 @@
                             <div class="col-sm-2">
                                 <select class="form-control m-b category" name="category_id">
                                     <option value="0">请选择分类</option>
-                                    {foreach $all as $v}
-                                    <option value="{$v.id}">{$v.name}</option>
-                                    {/foreach}
+
+                                    <option value=""></option>
+
                                 </select>
                             </div>
 
@@ -50,7 +53,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">内容</label>
                             <div class="col-sm-10">
-                                <textarea name="content" style="height: 300px;" id="editor1" class="form-control"></textarea>
+                                <textarea name="content" style="height: 300px;" id="editor1" class="form-control">{$b['content']}</textarea>
                             </div>
                         </div>
 
@@ -59,24 +62,24 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">署名</label>
                             <div class="col-sm-10">
-                                <input autocomplete="off" type="text" name="author" class="form-control">
+                                <input autocomplete="off" type="text" name="author" class="form-control" value="{$b['author']}">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">状态</label>
-                            <div class="col-sm-10">
-                                <input autocomplete="off" type="radio" value="0" checked name="status"> 未发布
-                                <input autocomplete="off" type="radio" value="1" name="status"> 已发布
-                            </div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label">状态</label>-->
+                        <!--<div class="col-sm-10">-->
+                        <!--<input autocomplete="off" type="radio" value="0" checked name="status"> 未发布-->
+                        <!--<input autocomplete="off" type="radio" value="1" name="status"> 已发布-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="hr-line-dashed"></div>-->
 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" id="btn" type="button">确认添加</button>
-                                <!--<button class="btn btn-white" onclick="history.back(-1);" type="button">返回分类列表</button>-->
+                                <button class="btn btn-primary" id="btn" type="button">确认修改</button>
+                                <button class="btn btn-white" onclick="history.back(-1);" type="button">返回文章列表</button>
                             </div>
                         </div>
                     </form>
@@ -90,49 +93,10 @@
 <script src="/static/ui/library/um/umeditor.config.js"></script>
 <script src="/static/ui/library/um/umeditor.js"></script>
 
-
 <script>
     var ue = UM.getEditor('editor1');
 
-    $('#form').on('change', '.category',function () {
 
-        var i = $(this);
-
-        $.post('{:url("admin/Article/ajaxCategory")}', {id: i.val()}, function (e) {
-
-            console.log(e);
-
-            if (e.length){
-                var str = '<div class="col-sm-2"><select class="form-control m-b category" name="category_id"><option value="0">请选择分类</option>';
-                for (var j in e){
-                    var d = e[j];
-
-                    str += '<option value="'+d.id+'">'+d.name+'</option>';
-
-                }
-                str += '</select></div>';
-                i.parent().nextAll().remove();
-                i.parent().after(str);
-
-            }
-        })
-    });
-
-
-    $('#btn').click(function () {
-
-        var data = $('#form').serialize();
-        $.post('', data, function (e) {
-            console.log(e);
-            if (e.code) {
-                layer.alert(e.msg, {icon: 1}, function () {
-                    location.href = e.url;
-                })
-            }else{
-                layer.alert(e.msg, {icon: 2})
-            }
-        })
-    })
 
 </script>
 
