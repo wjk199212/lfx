@@ -112,6 +112,7 @@ class Article extends Controller
            return $this->error('失败');
        }
       }
+//      删除
     public function delete()
     {
 
@@ -120,22 +121,22 @@ class Article extends Controller
         if (empty($id)) {
             $this->error('失败');
         }
-
-        $a = \think\Db::table('article')->where('id', $id)->delete();
-
+        $a=\app\admin\model\article::where('id',$id)->delete();
         if(empty($a)) {
             return $this->error('失败');
         }else{
             return $this->success('成功');
         }
     }
-
+//修改
     public function upset()
     {
         $re = $this->request;
+//        获取post请求
         if ($re->isPost()) {
             $id = $this->request->param('id');
-            $data = $re->only(['title', 'category_id', 'anthor', 'content', 'status']);
+//            验证信息
+            $data = $re->only(['title', 'category_id', 'author', 'content', 'status']);
             $rule = [
                 'title' => 'require|length:1,50',
                 'category_id' => 'require|min:1',
@@ -154,24 +155,27 @@ class Article extends Controller
                 'status.in' => '文章状态有误'
             ];
             $check = $this->validate($data, $rule, $msg);
+//            如果验证信息不正确则输出错误提示
             if ($check !== true) {
                 $this->error($check);
             }
-
-
-            $aa = \think\Db::table('article')->where('id', $id)->select();
-            if ($aa->update($data)) {
+            $aa =\app\admin\model\article::where('id',$id)->update($data);
+            if ($aa) {
                 $this->success('修改成功');
             } else {
-                $this->error('修改失败2');
+                $this->error('修改失败');
             }
 
         }
 
+//        获取get请求
         if ($re->isGet()) {
 
             $id = $this->request->param('id');
-            $b = \think\Db::table('article')->where('id', $id)->find()->toArray();
+            $all = category::where('pid',0)->all();
+            $this->assign('all',$all);
+            //            把对象转换成数组  toArray
+            $b= \app\admin\model\article::where('id',$id)->find()->toArray();
             $this->assign('b', $b);
             return $this->fetch();
         }

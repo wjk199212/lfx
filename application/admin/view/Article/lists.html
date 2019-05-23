@@ -48,6 +48,7 @@
 
                         </td>
                         <td>
+                            <!--<button >删除</button>-->
                             <a href="{:url('admin/Article/delete',['id'=>$v['id']])}" id="del">删除</a>
                             <a href="{:url('admin/Article/upset',['id'=>$v['id']])}" id="mod">修改</a>
                         </td>
@@ -59,11 +60,15 @@
                 </table>
 
                 {$list|raw}
+                <a href="{:url('admin/Article/add')}">继续添加文章</a>
+                
 
             </div>
+            
         </div>
     </div>
 </div>
+
 
 {include file='common/js'}
 
@@ -91,14 +96,11 @@
         })
 
     })
+
     $('#del').click(function () {
-
-        var i = $(this);
-        $.post('{:url("admin/Article/delete")}', {id: i.attr('data-delete-id')}, function (e) {
-
-            layer.alert(e.msg);
-
-        });
+        if (!confirm('您确定要删除吗')){
+            return false;
+        }
     });
 
     $('#mod').click(function () {
