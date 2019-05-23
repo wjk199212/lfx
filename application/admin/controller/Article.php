@@ -20,7 +20,7 @@ class Article extends Controller
          $data = $re->only(['title','category_id','author','content','status']);
         $rule = [
             'title'      =>'require|length:1,20',
-            'category_id'=>'require|min:1',
+            'category_id'=>'require|min:2',
             'author'     =>'length:2,10',
             'content'    =>'require|length:10,65535',
             'status'     =>'in:0,1'
@@ -38,8 +38,10 @@ class Article extends Controller
 
         ];
          $check=$this->validate($data,$rule,$msg);
+//         var_dump($check);
+//         exit();
 //         如果数据验证失败
-         if ($check!=true){
+         if ($check!==true){
              $this->error($check);
          }
 //         记录session
@@ -139,7 +141,7 @@ class Article extends Controller
             $data = $re->only(['title', 'category_id', 'author', 'content', 'status']);
             $rule = [
                 'title' => 'require|length:1,50',
-                'category_id' => 'require|min:1',
+                'category_id' => 'require|min:2',
                 'author' => 'length:2,10',
                 'content' => 'require|length:10,65535',
                 'status' => 'in:0,1'

@@ -104,11 +104,11 @@
 
             if (e.length){
                 var str = '<div class="col-sm-2"><select class="form-control m-b category" name="category_id"><option value="0">请选择分类</option>';
+
                 for (var j in e){
                     var d = e[j];
 
                     str += '<option value="'+d.id+'">'+d.name+'</option>';
-
                 }
                 str += '</select></div>';
                 i.parent().nextAll().remove();
