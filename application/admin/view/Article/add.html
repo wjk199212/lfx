@@ -35,7 +35,7 @@
                             <label class="col-sm-2 control-label">分类</label>
                             <div class="col-sm-2">
                                 <select class="form-control m-b category" name="category_id">
-                                    <option value="0">请选择分类</option>
+                                    <option value="">请选择分类</option>
                                     {foreach $all as $v}
                                     <option value="{$v.id}">{$v.name}</option>
                                     {/foreach}
@@ -103,8 +103,7 @@
             console.log(e);
 
             if (e.length){
-                var str = '<div class="col-sm-2"><select class="form-control m-b category" name="category_id"><option value="0">请选择分类</option>';
-
+                var str = '<div class="col-sm-2"><select class="form-control m-b category" name="category_id"><option value="">请选择分类</option>';
                 for (var j in e){
                     var d = e[j];
 
@@ -114,16 +113,20 @@
                 i.parent().nextAll().remove();
                 i.parent().after(str);
 
+                if (i.val() == ""){
+                    i.parent().nextAll().remove();
+                }
+            }else {
+                i.parent().nextAll().remove();
             }
-        })
+        });
     });
 
-
     $('#btn').click(function () {
-
         var data = $('#form').serialize();
+        console.log(data);
         $.post('', data, function (e) {
-            console.log(e);
+
             if (e.code) {
                 layer.alert(e.msg, {icon: 1}, function () {
                     location.href = e.url;
@@ -132,10 +135,11 @@
                 layer.alert(e.msg, {icon: 2})
             }
         })
-    })
+    });
+
+
 
 </script>
-
 </body>
 
 </html>
