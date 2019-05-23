@@ -20,7 +20,8 @@ class Article extends Controller
          $data = $re->only(['title','category_id','author','content','status']);
         $rule = [
             'title'      =>'require|length:1,20',
-            'category_id'=>'require|gt:0',
+            'category_id'=>'require|min:1',
+//            gt 也可以验证  >
             'author'     =>'require|length:2,10',
             'content'    =>'require|length:10,65535',
             'status'     =>'in:0,1'
@@ -30,7 +31,7 @@ class Article extends Controller
             'title.require'      =>'标题为必填项',
             'title.length'       =>'标题应在1-20个字符之间',
             'category_id.require'=>'请选择正确的分类信息',
-            'category_id.gt'    =>'请选择正确的分类信息',
+            'category_id.min'    =>'请选择正确的分类信息',
             'ayrhor.require'     =>'请输入正确的署名',
             'author.length'      =>'署名应该在2-10之间',
             'content.require'    =>'文章内容为必填项',
@@ -45,9 +46,11 @@ class Article extends Controller
 //         if (category::value('id',0)){
 //             $this->error($check);
 //         }
+
          if ($check!==true){
              $this->error($check);
          }
+
 //         记录session
          $data['aid']=session('adminLoginVal')->id;
 
@@ -145,7 +148,7 @@ class Article extends Controller
             $data = $re->only(['title', 'category_id', 'author', 'content', 'status']);
             $rule = [
                 'title' => 'require|length:1,50',
-                'category_id' => 'require|gt:0',
+                'category_id' => 'require|min:1',
                 'author' => 'length:2,10',
                 'content' => 'require|length:10,65535',
                 'status' => 'in:0,1'
@@ -154,7 +157,7 @@ class Article extends Controller
                 'title.require' => '文章标题为必填项',
                 'title.length' => '文章标题应在1-50字之间',
                 'category_id.require' => '请选择正确的分类信息',
-                'category_id.gt' => '请选择正确的分类信息',
+                'category_id.min' => '请选择正确的分类信息',
                 'author.length' => '署名长度应在2-10个字之间',
                 'content.require' => '文章内容为必填项',
                 'content.length' => '文章内容过短或者过长',

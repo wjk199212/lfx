@@ -35,7 +35,11 @@
                     <tr>
                         <td>{$v.id}</td>
                         <td>{$v.name}</td>
-                        <td><a href="{:url('admin/Index/addCategory', ['id'=>$v['id']])}">添加</a></td>
+                        <td><a href="{:url('admin/Index/addCategory', ['id'=>$v['id']])}">添加</a>
+                            <a href="{:url('admin/Index/delete',['id'=>$v['id']])}" id="del">删除</a>
+                            <a href="{:url('admin/Index/upset', ['id'=>$v['id']])}">修改</a>
+                        </td>
+
                         <td><a data-id="{$v.id}" class="point-e children" data-op="plus"><i class="fa fa-plus"></i></a></td>
                     </tr>
 
@@ -77,12 +81,11 @@
             i.html('<i class="fa fa-plus"></i>');
             $('.x'+pid).remove();
         }
-
-
-
-
-
-
+    });
+    $('#del').click(function () {
+        if (!confirm('您确定要删除吗')){
+            return false;
+        }
     });
 
 </script>

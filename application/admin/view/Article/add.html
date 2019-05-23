@@ -123,9 +123,19 @@
     });
 
     $('#btn').click(function () {
+
         var data = $('#form').serialize();
+        var a =data.split('&');
+        var b = [];
+        for(var i=0;i<a.length;i++){
+            if (a[i] == "category_id=") {
+                i++;
+            }
+            b[i] = a[i];
+        }
+        var c = b.join("&");
         console.log(data);
-        $.post('', data, function (e) {
+        $.post('', c, function (e) {
 
             if (e.code) {
                 layer.alert(e.msg, {icon: 1}, function () {

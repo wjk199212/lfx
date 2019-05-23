@@ -90,6 +90,7 @@ class Index extends Controller
             }
         }
     }
+
 // 分类列表
     public function categoryList()
     {
@@ -154,7 +155,106 @@ DDDD;
         return $newData;
     }
 
+//    删除分类
+
+    public function delete()
+    {
+        $id = $this->request->param('id');
+
+        if (empty($id)) {
+            $this->error('失败');
+        }
+        $a=category::where('id',$id)->delete();
+        if(empty($a)) {
+            return $this->error('失败');
+        }else{
+            return $this->success('成功');
+        }
+
+    }
+
+//    修改分类
+     public function upset()
+     {
+         $re = $this->request;
+//处理GET请求
+         if($re->isGet()){
+             $pid = $re->param('id', 0);
+
+             if (empty($pid)){
+
+                 $this->assign('parentName', '顶级分类');
+             }else{
+                 $parentName = category::where('id', $pid)->value('name');
+                 if (!$parentName){
+                     $this->error('非法操作');
+                 }
+                 $this->assign('parentName', $parentName);
+             }
+             $this->assign('pid', $pid);
+             return $this->fetch();
+         }
+//处理post请求
+         if ($re->isPost()){
+
+             $name = $re->param('name');
+             $pid = $re->param('pid', 0);
+
+             if (mb_strlen($name, 'utf-8') > 10 || mb_strlen($name, 'utf-8') < 2){
+                 $this->error('分类名称长度应在2-10位之间');
+             }
+             //同一个父级下不能重名
+             $where = ['pid'=>$pid, 'name'=>$name];
+             if (category::where($where)->find()){
+                 $this->error('该分类已存在');
+             }
+             if ($pid == 0){
+
+                 //顶级分类的处理
+                 $level = 0;
+                 $path = '0-';
+
+             }else{
+                 $parent = category::where('id', $pid)->find();
+                 if (empty($parent)){
+                     //如果通过用户传的pid找不到信息，说明是一个非法操作
+                     $this->error('非法操作');
+                 }
+                 $level = $parent->level + 1;
+                 $path = $parent->path . $pid.'-';
+             }
+
+
+             //入库
+             $data = [
+                 'name'=>$name,
+                 'pid' => $pid,
+                 'level' => $level,
+                 'path' => $path
+             ];
+             if (category::create($data)){
+                 $this->success('成功');
+             }else{
+                 $this->error('失败');
+             }
+         }
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
 
 
 
