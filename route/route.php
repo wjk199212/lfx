@@ -26,3 +26,4 @@ Route::rule('admin-article-add', 'admin/Article/add')->method('GET,POST');
 //ajax获取文章分类
 Route::post('admin-article-category', 'admin/Article/ajaxCategory');
 Route::post('admin-article-change-status', 'admin/Article/changeStatus');
+Route::post('admin-article-upload-image', 'admin/Article/uploadImage');

@@ -17,7 +17,7 @@ class Article extends Controller
 //     处理POST请求
      if ($re->isPost()){
 //         验证信息
-         $data = $re->only(['title','category_id','author','content','status']);
+         $data = $re->only(['title','category_id','author','content','status','thumb','minthumb']);
         $rule = [
             'title'      =>'require|length:1,20',
             'category_id'=>'require|min:1',
@@ -189,6 +189,31 @@ class Article extends Controller
             return $this->fetch();
         }
     }
+//    图片上传
+    public function uploadImage()
+    {
+        $image = $this->request->file('file');
+        $res = $image->validate(['size'=>1048576, 'ext'=>'jpg,png,gif,jpeg'])->move('static/upload/');
 
+        if ($res){
+            //获取文件的保存路径
+            //$res->getPath();
+            //获取文件的保存文件名
+            //$res->getFilename();
 
+            //含有路径信息的文件名
+            $path = $res->getPathname();
+            //缩略图保存路径
+            $min = $res->getPath().'/min'.$res->getFilename();
+
+            $im = \think\Image::open($path);
+            //裁剪
+            //$im->crop(60, 60, \think\Image::THUMB_CENTER)->save($res->getPath().'/min'.$res->getFilename());
+            //生成缩略图
+            $im->thumb(60, 60, \think\Image::THUMB_CENTER)->save($min);
+            return json(['code'=>1, 'thumb'=> $path, 'min'=> $min]);
+        }else{
+            return json(['code'=>0, 'info'=>$image->getError()]);
+        }
+    }
 }
