@@ -216,4 +216,31 @@ class Article extends Controller
             return json(['code'=>0, 'info'=>$image->getError()]);
         }
     }
+    public function umUploadImage()
+    {
+        if ($this->request->isGet()){
+            $configData = file_get_contents("static/ui/library/ue/config.json");
+            $config = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", $configData), true);
+            return json_encode($config);
+        }
+
+        if ($this->request->isPost()){
+            $image = $this->request->file('upfile');
+            $res = $image->validate(['size'=>1048576, 'ext'=>'jpg,png,gif,jpeg'])->move('static/upload/');
+            if ($res){
+
+                $info =  [
+                    "originalName" => $res->getFilename() ,
+                    "name" => $res->getSaveName() ,
+                    "url" => $res->getPathname() ,
+                    "size" => $res->getSize() ,
+                    "type" => $res->getExtension() ,
+                    "state" => 'SUCCESS'
+                ];
+
+                return json_encode($info);
+            }
+        }
+
+    }
 }

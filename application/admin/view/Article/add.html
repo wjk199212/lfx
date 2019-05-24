@@ -7,7 +7,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     {include file='common/css'}
-    <link href="/static/ui/library/um/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <link href="/static/ui/library/ue/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
     <link href="/static/ui/library/webuploader/webuploader.css" type="text/css" rel="stylesheet">
 
 </head>
@@ -51,7 +51,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">内容</label>
                             <div class="col-sm-10">
-                                <textarea name="content" style="height: 300px;" id="editor1" class="form-control"></textarea>
+                                <!--<textarea name="content" style="height: 300px;" id="editor1" class="form-control"></textarea>-->
+                              <scripyt id="editor1" name="content" type="text/plain"></scripyt>
                             </div>
                         </div>
 
@@ -98,13 +99,31 @@
 </div>
 
 {include file='common/js'}
-<script src="/static/ui/library/um/umeditor.config.js"></script>
-<script src="/static/ui/library/um/umeditor.js"></script>
+<script src="/static/ui/library/ue/ueditor.config.js"></script>
+<script src="/static/ui/library/ue/ueditor.all.js"></script>
 <script src="/static/ui/library/webuploader/webuploader.js"></script>
 
 
 <script>
-    var ue = UM.getEditor('editor1');
+    var ue = UE.getEditor('editor1', {
+        serverUrl:"{:url('admin/Article/umUploadImage')}",
+        toolbars:[[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+            'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+            'directionalityltr', 'directionalityrtl', 'indent', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+            'simpleupload', 'insertimage', 'emotion', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+            'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+            'print', 'preview', 'searchreplace', 'drafts', 'help'
+        ]],
+        initialFrameWidth: '100%',
+        maximumWords: 20000,
+        initialFrameHeight:'350'
+    });
 
     $('#form').on('change', '.category',function () {
 
