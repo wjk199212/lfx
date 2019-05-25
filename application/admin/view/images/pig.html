@@ -12,6 +12,7 @@
 
     <link rel="shortcut icon" href="favicon.ico"> <link href="/static/ui/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/static/ui/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/ui/library/webuploader/webuploader.css" type="text/css" rel="stylesheet">
 
     <link href="/static/ui/css/animate.css" rel="stylesheet">
     <link href="/static/ui/css/style.css?v=4.1.0" rel="stylesheet">
@@ -19,6 +20,44 @@
 </head>
 
 <body class="gray-bg">
+<div class="col-sm-10">
+    <div id="picker">请添加图片</div>
+    <div id="img"></div>
+</div>
+<div class="ibox-content">
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <!--<th>封面图</th>-->
+            <th>文章标题</th>
+            <!--<th>文章内容</th>-->
+            <th>所属分类</th>
+            <th>文章状态</th>
+            <!--<th>操作</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <span>已发布</span>
+                <button data-id="" class="btn btn-warning status btn-xs">下线</button>
+                <span>未发布</span>
+                <button data-id="" class="btn btn-primary status btn-xs">上线</button>
+
+
+            </td>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-sm-4">
@@ -203,6 +242,7 @@
 
 <!-- 全局js -->
 <script src="/static/ui/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/ui/library/webuploader/webuploader.js"></script>
 <script src="/static/ui/js/bootstrap.min.js?v=3.3.6"></script>
 
 
@@ -218,10 +258,30 @@
             animationHover(this, 'pulse');
         });
     });
+    var uploader = WebUploader.create({
+        //    swf文件路径
+        swf:'/static/ui/library/webuploader/Uploader.swf',
+        // 接收文件的服务端路径
+        server:'{:url("admin/Article/uploadImage")}',
+        pick:'#picker',
+        auto:true,
+        duplicate:true,
+        resize:false
+    });
+    uploader.on( 'uploadSuccess', function(file, res) {
+        if (res.code) {
+            $('#img').append('<img  style="height: 60px;"  src="'+res.min+'">');
+            $('#thumb').val(res.thumb);
+            $('#minthumb').val(res.min);
+        }else{
+            layer.alert(res.info, {icon: 2})
+        }
+    });
 </script>
 
 
 
 
 
-</body></html>
+</body>
+</html>
