@@ -42,7 +42,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <input type="hidden" name="pid" value="parentName">
+                                <input type="hidden" name="pid" value="">
                                 <button class="btn btn-primary" id="btn" type="button">确认添加</button>
                                 <button class="btn btn-white" onclick="history.back(-1);" type="button">返回分类列表</button>
                             </div>
@@ -62,7 +62,7 @@
         var data = $('#form').serialize();
 
         $.post('', data, function (e) {
-
+            console.log(e);
             if (e.code) {
                 $('input[name=name]').val('');
                 layer.alert(e.msg, {icon: 1})

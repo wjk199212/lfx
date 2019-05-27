@@ -13,27 +13,27 @@ class Addsort extends Controller
 {
     public function sort()
     {
-
-
+        return $this->fetch();
        $re = $this->request;
+//       $this->request->param();
+
        if ($re->isGet()){
            $pid = $re->param('id',0);
 
            if (empty($pid)){
                $this->assign('parentName','顶级分类');
            }else{
-               $parentName =\think\Db::table(album)->where('id',$pid)->value('name');
+               $parentName =\think\Db::table('album')->where('id',$pid)->value('name');
                if (!$parentName){
                    $this->error('非法操作');
                }
                $this->assign('parentName',$parentName);
                $this->assign('pid',$pid);
-               return $this->fetch();
+
            }
 
        }
        if ($re->isPost()){
-           $name = $re->param('name');
            $pid = $re->param('pid',0);
            if (mb_strlen($name,'utf-8')>10||mb_strlen($name,'utf-8')<2){
                $this->error('分类名应在2-10位之间');
