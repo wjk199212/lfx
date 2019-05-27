@@ -1,15 +1,69 @@
 <?php
+
 namespace app\index\controller;
 
-class Index
-{
-    public function index()
-    {
-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12载初心不改（2006-2018） - 你值得信赖的PHP框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
-    }
+use app\admin\model\article;
+use app\admin\model\category;
+use think\Controller;
+//error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-    public function hello($name = 'ThinkPHP5')
+class Index extends Controller
+{
+    public function news()
     {
-        return 'hello,' . $name;
+        $id = $this->request->param('id',0);
+//        print_r($id);
+        $this->assign('id',$id);
+//        查出分类中的所有子类信息
+        $category=$this->categoryList(1);
+        $categories = [];
+        foreach ($category as $v){
+            $categories[] =$v['id'];
+        }
+        if ($id){
+            $categoryInfo =category::where('id',$id)->find();
+            $this->assign('categoryInfo',$categoryInfo);
+//            return $this->fetch();
+            $list = article::where('category_id','in',$categories)
+                ->where('status',1)
+                ->order('create_time DESC')
+                ->paginate(2);
+
+        }else{
+            $this->assign('categoryInfo','');
+            $list = article::where('category_id','in',$categories)
+                ->where('status',1)
+                ->order('create_time DESC')
+                ->paginate(2);
+        }
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
+    public function detail(){
+        $category = $this->categoryList(1);
+//        文章ID
+        $id =$this->request->param('id');
+        $info = article::get($id);
+        $this->assign('info',$info);
+//        更新阅读次数
+        $info->setInc('hits');
+        return $this->fetch();
+    }
+//    分类列表
+    protected function categoryList($id){
+
+        $category = category::where('pid',$id)->select();
+        $this->assign('category',$category);
+        return $category;
+    }
+//    关于我们
+    public function about(){
+//        分类ID
+        $id = $this->request->param('id');
+        $this->categoryList('5');
+        $info = article::where('category_id',$id)->find();
+        $this->assign('info',$info);
+        $this->assign('id',$id);
+        return $this->fetch();
     }
 }

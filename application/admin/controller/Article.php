@@ -19,7 +19,7 @@ class Article extends Controller
 //         验证信息
          $data = $re->only(['title','category_id','author','content','status','thumb','minthumb']);
         $rule = [
-            'title'      =>'require|length:1,20',
+            'title'      =>'require|length:1,50',
             'category_id'=>'require|min:1',
 //            gt 也可以验证  >
             'author'     =>'require|length:2,10',
@@ -29,7 +29,7 @@ class Article extends Controller
 
         $msg =[
             'title.require'      =>'标题为必填项',
-            'title.length'       =>'标题应在1-20个字符之间',
+            'title.length'       =>'标题应在1-50个字符之间',
             'category_id.require'=>'请选择正确的分类信息',
             'category_id.min'    =>'请选择正确的分类信息',
             'ayrhor.require'     =>'请输入正确的署名',

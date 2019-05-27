@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>新闻中心</title>
+    <meta name="description" content=" 老凤祥">
+    <meta name="keywords" content=" 老凤祥">
+    <script type="text/javascript" src="/static/front/js/jQuery.js"></script>
+    <script src="/static/front/js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/front/js/main.js" type="text/javascript" charset="utf-8"></script>
+    <link type="text/css" rel="stylesheet" href="/static/front/css/css.css">
+    <link rel="stylesheet" type="text/css" href="/static/front/css/pro_dropdown_2.css">
+    {block name='css'}{/block}
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .pages {
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .pages a {
+            border: 1px solid #606060;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            margin: 0 5px;
+            text-align: center;
+            width: 20px;
+            color: #fff;
+            background-color: #606060;
+        }
+
+        .pages > .prev {
+            width: 60px;
+            border: none;
+        }
+
+        .pages > .next {
+            width: 60px;
+            border: none;
+        }
+
+        .pages > .current {
+            color: #fff;
+            border: 1px solid #dcbf0a;
+            background-color: #dcbf0a;
+        }
+
+        .box ul li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body><!--顶部logo及链接-->
+<div class="top">
+    <div class="w1100">
+        <div style="text-align:right;"><br></div>
+    </div>
+</div>
+<div class="header w1100">
+    <div class="logo"><a href="http://www.laofengxiang.com/"></a></div>
+    <div class="menu">
+        <ul id="nav">
+            <li class="top"><a href="/" class="top_link">首页</a></li>
+            <li class="top"><a href="{:url('index/Index/about',['id'=>6])}" id="products" class="top_link">关于我们</a></li>
+            <li class="top"><a href="{:url('index/Index/news')}" class="cur">新闻中心</a></li>
+            <li class="top"><a href="http://www.laofengxiang.com/product/6605" id="services" class="top_link">产品欣赏</a>
+            </li>
+            <li class="top"><a href="http://www.laofengxiang.com/master" id="shop" class="top_link">大师风采</a></li>
+            <li class="top"><a href="http://www.laofengxiang.com/represent" id="contacts" class="top_link">名人代言</a></li>
+            <li class="top"><a href="http://www.laofengxiang.com/stores" class="top_link">专卖店查询</a></li>
+            <!--  <li class="top"><a href="/customer" id="privacy" class="top_link">客服中心</a></li> -->
+            <!--  <li class="top"><a href="/customer" id="privacy" class="top_link">服务点</a></li> -->
+            <li class="last"><a href="http://yun.baidu.com/" target="_blank" class="top_link">资料下载</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="nbanner"><a href="http://www.laofengxiang.com/news/6800"
+                        style="background:url(/static/front/image/5c3c3359cc7a3.jpg) no-repeat 50% top;width:100%;height:400px;display:block;"></a>
+</div>
+
+
+
+{block name='main'} {/block}
+
+
+
+
+
+
+<div class="footer">
+    <div class="w1100">
+        <div class="foot1">
+            <p>© 2016 上海老凤祥有限公司 版权所有 不得转载.
+                <a target="_blank" href="http://www.miibeian.gov.cn/publish/query/indexFirst.action" style="color:#fff;"> 沪ICP备12006128号</a> <br>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402000185" style="color:#fff;">
+                    <img src="/static/front/image/icon.png"> 沪公网安备 31010402000185号
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;使用条款私隐
+            </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+{block name='script'}{/block}
+
+
+
+
+</body>
+</html>

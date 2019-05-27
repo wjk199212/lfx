@@ -33,8 +33,9 @@
                     {foreach $list as $v}
 
                     <tr>
+                        <!--<a href="{:url('index/index/news',[$v.id])}"></a>-->
                         <td>{$v.id}</td>
-                        <td>{$v.name}</td>
+                        <td> <a href="{:url('index/index/news',['id'=>$v['id']])}">{$v.name}</a></td>
                         <td><a href="{:url('admin/Index/addCategory', ['id'=>$v['id']])}">添加</a>
                             <a href="{:url('admin/Index/delete',['id'=>$v['id']])}" id="del">删除</a>
                             <a href="{:url('admin/Index/upset', ['id'=>$v['id']])}">修改</a>

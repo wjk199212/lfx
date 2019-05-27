@@ -1,0 +1,58 @@
+{extend name='xxx/yyy' /}
+
+{block name='main'}
+
+<div class="loc" style="border:0px;">
+    <div class="w1100">
+        <a href="{:url('Index/index/news')}" {eq name="id" value="0"} class="on"{/eq}>全部</a>
+        {foreach $category as $v}
+        <a {eq name="id" value="$v['id']"} class="on"{/eq} href="{:url('Index/index/news', ['id'=>$v['id']])}">{$v.name}</a>
+        {/foreach}
+    </div>
+</div>
+<div class="mainbody">
+    <div class="title01">
+        {if $categoryInfo}
+        {$categoryInfo.name}
+        {else/}
+        全部新闻
+        {/if}
+    </div>
+</div>
+<div class="news_box">
+    <ul class="clearfix">
+        {foreach $list as $v}
+        <li>
+            <div class="w1100">
+                <div class="rq"><p class="day">{$v.create_time|date='y'}</p>
+                    <p class="month">{$v.create_time|date='m'}</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="tp"><a href="{:url('index/Index/detail', ['id'=>$v['id']])}">
+                    <img src="/{$v.thumb}"></a>
+                </div>
+                <dl>
+                    <dt><a href="{:url('index/Index/detail', ['id'=>$v['id']])}">{$v.title}</a></dt>
+                    <dd></dd>
+                    <a class="more1" href="{:url('index/Index/detail', ['id'=>$v['id']])}">阅读详情</a>
+                    <div class="clear"></div>
+                </dl>
+                <div class="clear"></div>
+            </div>
+        </li>
+        {/foreach}
+        <div class="clear"></div>
+    </ul>
+    <div class="pages">
+        {$list|raw}
+        <!--<a class="prev current">上一页</a><a class="current">1</a>-->
+        <!--<a href="http://www.laofengxiang.com/news/index/id/6800/p/2.html">2</a>-->
+        <!--<a href="http://www.laofengxiang.com/news/index/id/6800/p/3.html">3</a>-->
+        <!--<a>...</a>-->
+        <!--<a href="http://www.laofengxiang.com/news/index/id/6800/p/28.html">28</a>-->
+        <!--<a href="http://www.laofengxiang.com/news/index/id/6800/p/2.html" class="next">下一页</a>-->
+    </div>
+</div>
+<!-- <div class="copyright"><div class="w1100"><div class="left"><ul><li><a  class="tt">关于我们</a><a href="/about">公司简介</a><a href="/about/honor">荣誉资质</a><a href="/about/history">品牌历史</a><a href="/about/culture">企业文化</a><a href="/about/company">企业规模</a><a href="/about/service">十大特色服务</a><a href="/about/skill">金银细工制作技艺</a></li><li><a href="#" class="tt">产品欣赏</a><a href="/product/6605">老凤祥迪士尼主题</a><a href="/product/6672">老凤祥铂爱</a><a href="/product/6673">老凤祥腕表</a><a href="/product/6609">精品翡翠</a><a href="/product/6610">高端白玉</a><a href="/product/6669">典雅珍珠</a><a href="/product/6611">奢华钻饰</a><a href="/product/6608">珠宝眼镜</a><a href="/product/6670">饰镜（太阳镜）</a><a href="/product/6607">珐琅艺术时尚精品</a><a href="/product/6606">时尚钻饰动静系列</a><a href="/product/6604">铂金婚庆首饰</a><a href="/product/6603">柔力玫瑰金</a><a href="/product/6601">金银细工制作技艺</a><a href="/product/6664">金镶玉</a><a href="/product/6668">黄金</a><a href="/product/6667">珍珠</a><a href="/product/6666">彩宝</a><a href="/product/6665">珊瑚</a></li><li><a href="#" class="tt">新闻中心</a><a href="/news/6612">公司新闻</a><a href="/news/6613">品牌故事</a></li><li><a  class="tt">其他</a><a href="/represent">名人代言</a><a href="/master">大师风采</a><a href="http://yunpan.360.cn/">资料下载</a><a href="/customer">客服中心</a></li></ul><div class="clear"></div></div><div class="right"><p><img src="/Public/Home/Images/ewm.jpg" /></p><p class="p1 mt10">关注公众号</p></div><div class="clear"></div></div></div> -->
+
+{/block}

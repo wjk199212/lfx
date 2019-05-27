@@ -1,0 +1,28 @@
+<!--老凤祥抬头和结尾-->
+{extend name="xxx/yyy" /}
+{block name='main'}
+<!--需要添加的内容-->
+
+<div class="loc">
+    <div class="w1100">
+        {foreach $category as $v}
+        <a {eq name="id" value="$v['id']"} class="on"{/eq} href="{:url('Index/index/about', ['id'=>$v['id']])}">{$v.name}</a>
+        {/foreach}
+    </div>
+</div>
+<div class="mainbody">
+    <div class="newsshow">
+        <h1>{$info.title}</h1>
+        <div class="viewcontent">
+            {$info.content|raw}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+{/block}
+
+
+<!-- html模块 -->

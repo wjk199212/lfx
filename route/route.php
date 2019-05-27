@@ -12,6 +12,7 @@
 
 //用户登录的路由
 Route::rule('login', 'admin/Login/in')->method('GET,POST');
+Route::get('logout', 'admin/Login/out');
 
 //后台首页
 Route::get('admin$', 'admin/Index/index');
@@ -27,3 +28,18 @@ Route::rule('admin-article-add', 'admin/Article/add')->method('GET,POST');
 Route::post('admin-article-category', 'admin/Article/ajaxCategory');
 Route::post('admin-article-change-status', 'admin/Article/changeStatus');
 Route::post('admin-article-upload-image', 'admin/Article/uploadImage');
+Route::rule('admin-article-ueupload', 'admin/Article/ueUpload')->method('GET,POST');
+
+Route::rule('admin-image/[:id]$', 'admin/Image/lists')->method('GET,POST');
+Route::rule('admin-image-add', 'admin/Image/add')->method('GET,POST');
+Route::rule('admin-image-category', 'admin/Image/getImageCategory')->method('GET,POST');
+
+
+
+
+Route::get('news/[:id]$', 'Index/index/news');
+//限制变量的规则，可选参数不受规则限制
+//Route::get('news/:id', 'Index/index/news')->pattern(['id'=>'\d+']);
+//Route::get('news/:id', 'Index/index/news', [], ['id'=>'\d+']);
+Route::get('news/detail/[:id]', 'Index/index/detail');
+Route::get('about/:id', 'Index/index/about');
