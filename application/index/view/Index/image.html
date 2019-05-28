@@ -1,0 +1,84 @@
+{extend name='xxx/zzz' /}
+
+{block name='main'}
+<div class="col-sm-4">
+    <div class="contact-box">
+
+        <div class="col-sm-4">
+            <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/ui/img/a2.jpg">
+                <!--<div class="m-t-xs font-bold">CTO</div>-->
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+<div style="height: 800px"></div>
+
+<div class="footers" style="background-color: #2f302e" >
+    <div class="w1100">
+        <div class="foot1">
+            <p>© 2016 上海老凤祥有限公司 版权所有 不得转载.
+                <a target="_blank" href="http://www.miibeian.gov.cn/publish/query/indexFirst.action" style="color:#fff;"> 沪ICP备12006128号</a> <br>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402000185" style="color:#fff;">
+                    <img src="/static/front/image/icon.png"> 沪公网安备 31010402000185号
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;使用条款私隐
+            </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.contact-box').each(function () {
+            animationHover(this, 'pulse');
+        });
+    });
+    var uploader = WebUploader.create({
+        //    swf文件路径
+        swf:'/static/ui/library/webuploader/Uploader.swf',
+        // 接收文件的服务端路径
+        server:'{:url("admin/Article/uploadImage")}',
+        pick:'#picker',
+        auto:true,
+        duplicate:true,
+        resize:false
+    });
+    uploader.on( 'uploadSuccess', function(file, res) {
+        if (res.code) {
+            $('#img').append('<img  style="height: 60px;"  src="'+res.min+'">');
+            $('#thumb').val(res.thumb);
+            $('#minthumb').val(res.min);
+        }else{
+            layer.alert(res.info, {icon: 2})
+        }
+    });
+</script>
+
+
+
+
+
+
+
+{/block}

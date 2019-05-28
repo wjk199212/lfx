@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加文章</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    {include file='common/css'}
+    <link href="/static/ui/css/demo/webuploader-demo.css" type="text/css" rel="stylesheet">
+    <link href="/static/ui/library/webuploader/webuploader.css" type="text/css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="ibox-content">
+    <div class="page-container">
+        <div id="uploader" class="wu-example">
+            <div class="queueList filled">
+
+                <ul class="filelist">
+
+                </ul>
+            </div>
+            <div class="statusBar" style="">
+                <form action="" id="form">
+                    <div class="info">
+                        <select class="form-control category" name="category">
+
+                            {foreach $list as $v}
+                            <option value="{$v.id}">{$v.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+
+                    <div class="btns">
+                        <a id="picker">添加图片</a>
+                        <div class="uploadBtn state-ready">确认添加</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{include file='common/js'}
+<script src="/static/ui/library/webuploader/webuploader.js"></script>
+
+<script>
+
+
+    var uploader = WebUploader.create({
+        // swf文件路径
+        swf: '/static/ui/library/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '{:url("admin/Article/uploadImage")}',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#picker',
+        //选中文件后自动上传
+        auto: true,
+        //可重复上传
+        duplicate: true,
+        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+        resize: false,
+        // 只允许选择图片文件。
+        // accept: {
+        //     title: 'Images',
+        //     extensions: 'gif',
+        //     mimeTypes: 'image/*'
+        // },
+        // //线程数
+        // threads: 1,
+        // //单个文件大小限制
+        // fileSingleSizeLimit: 1048576,
+        // //上传文件数量限制
+        // fileNumLimit:1,
+    });
+    //上传成功
+    uploader.on('uploadSuccess', function (file, res) {
+        // console.log(res);
+        if (res.code) {
+            $('.filelist').append('<li>\n' +
+                '                        <p class="imgWrap"><img src="'+res.thumb+'"> </p>\n' +
+                '                        <p class="progress"><span></span></p>\n' +
+                '                    </li>');
+            $('.uploadBtn').before('<input type="hidden" name="xxxx[]" value="'+res.thumb+'">')
+        } else {
+            layer.alert(res.info, {icon: 2})
+        }
+    });
+
+
+    $('#form').on('change', '.category',function () {
+        var i = $(this);
+        var id = parseInt(i.val());
+        $.post('{:url("admin/Image/getImageCategory")}', {id:id}, function (e) {
+
+            if (e.length){
+                var str = '<div class="info"><select class="form-control category" name="category">';
+                for (var j in e){
+                    var d = e[j];
+                    str += '<option value="'+d.id+'">'+d.name+'</option>';
+                }
+                str += '</select></div>';
+                i.parent().nextUntil('.btns').remove();
+                i.parent().after(str);
+            }else{
+                i.parent().nextUntil('.btns').remove();
+            }
+        })
+
+    });
+
+    $('.uploadBtn').click(function () {
+
+        var i = $('#form');
+
+        $.post('', i.serialize(), function (e) {
+            if (e.code){
+                parent.window.location.reload();
+            }else{
+                layer.alert(e.msg);
+            }
+        })
+    })
+
+</script>
+
+</body>
+
+</html>

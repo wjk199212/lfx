@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>添加图片后台</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    {include file='common/css'}
+    <link rel="stylesheet" href="/static/ui/library/Gallery/css/blueimp-gallery.css">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+                        <button class="btn btn-primary upload btn-block">上传文件</button>
+                        <div class="hr-line-dashed"></div>
+                        <h5>文件夹</h5>
+                        <ul class="folder-list" style="padding: 0">
+                            {foreach $categoryList as $v}
+                            <li><a href="{:url('admin/Image/lists', ['id'=>$v['id']])}"><i class="fa fa-folder"></i> {$v.name}</a></li>
+                            {/foreach}
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    {foreach $list as $v}
+                    <div class="file-box">
+                        <div class="file">
+                            <a>
+                                <span class="corner"></span>
+
+                                <div class="image">
+                                    <img alt="image" class="img-responsive" src="/{$v.location}">
+                                </div>
+                                <div class="file-name">
+                                    Italy street.jpg
+                                    <br/>
+                                    <small>添加时间：2014-10-13</small>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    {/foreach}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='common/js'}
+
+
+<script>
+
+
+    $('.upload').click(function () {
+        layer.open({
+            type: 2,
+            title: '上传图片',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['893px', '600px'],
+            content: '{:url("admin/Image/add")}'
+        });
+
+    });
+
+    $('.img-responsive').click(function () {
+
+        layer.photos({
+            photos: '.file-box'
+            ,anim: 5
+        });
+    })
+
+
+</script>
+
+</body>
+
+</html>

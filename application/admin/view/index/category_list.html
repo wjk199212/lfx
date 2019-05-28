@@ -20,6 +20,11 @@
             <div class="ibox-content">
 
                 <table class="table table-bordered">
+                    <div class="ibox-tools">
+                        <a class="reload-btn" onclick="location.reload();">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                    </div>
                     <thead>
                     <tr>
                         <th>#</th>
@@ -33,7 +38,6 @@
                     {foreach $list as $v}
 
                     <tr>
-                        <!--<a href="{:url('index/index/news',[$v.id])}"></a>-->
                         <td>{$v.id}</td>
                         <td> <a href="{:url('index/index/news',['id'=>$v['id']])}">{$v.name}</a></td>
                         <td><a href="{:url('admin/Index/addCategory', ['id'=>$v['id']])}">添加</a>
