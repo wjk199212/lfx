@@ -1,19 +1,38 @@
 {extend name='xxx/zzz' /}
 
 {block name='main'}
-<div class="col-sm-4">
-    <div class="contact-box">
-
-        <div class="col-sm-4">
-            <div class="text-center">
-                <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/ui/img/a2.jpg">
-                <!--<div class="m-t-xs font-bold">CTO</div>-->
-            </div>
+<div class="loc">
+        <div class="w1100">
+                {foreach $category as $v}
+                <a {eq name="id" value="$v['id']" } class="on" {/eq} href="{:url('Index/index/image', ['id'=>$v['id']])}">{$v.name}</a>
+                {/foreach}
         </div>
 
-        <div class="clearfix"></div>
+        <div class="title01">产品中心</div>
 
+    <div class="col-sm-4" style="display: flex;flex-wrap:wrap;flex-direction: row">
+        {foreach $images as $v}
+                <div class="col-sm-4">
+                    <div class="text-center">
+
+                        <img alt="image" class="img-circle m-t-xs " src="/{$v.location}">
+
+                        <div class="m-t-xs font-bold">CTO</div>
+                    </div>
+                </div>
+            </a>
+
+            <div class="clearfix"></div>
+
+        {/foreach}
     </div>
+    <!--<div>-->
+        <!--<div>-->
+            <!--{foreach $images as $v}-->
+            <!--<img src="/{$v.location}">-->
+            <!--{/foreach}-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 <div style="height: 800px"></div>
 

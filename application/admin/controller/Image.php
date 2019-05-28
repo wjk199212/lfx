@@ -6,9 +6,6 @@
  * Time: 下午7:30
  */
 namespace app\admin\controller;
-
-
-
 use app\admin\model\category;
 use app\admin\model\images;
 use think\Controller;
@@ -53,7 +50,7 @@ class image extends Controller
          }
 
 
-         $list = \app\admin\model\images::where($where)->select();
+         $list = images::where($where)->select();
          $this->assign('list', $list);
 
          $categoryList = category::where('type',2)->select();
@@ -69,7 +66,6 @@ class image extends Controller
     }
     public function pig(){
         return $this->fetch();
-
     }
 
 }

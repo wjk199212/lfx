@@ -52,3 +52,4 @@ Route::get('news/[:id]$', 'Index/index/news');
 //Route::get('news/:id', 'Index/index/news', [], ['id'=>'\d+']);
 Route::get('news/detail/[:id]', 'Index/index/detail');
 Route::get('about/:id', 'Index/index/about');
+//Route::get('image/[:id]$', 'Index/index/image');
