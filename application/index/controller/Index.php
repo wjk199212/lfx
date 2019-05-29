@@ -24,6 +24,7 @@ class Index extends Controller
             $categories[] =$v['id'];
         }
         if ($id){
+
             $categoryInfo =category::where('id',$id)->find();
             $this->assign('categoryInfo',$categoryInfo);
 
@@ -107,6 +108,9 @@ class Index extends Controller
         $this->assign('categoryList',$categoryList);
         $images = images::where('category_id',$id)->all();
         $this->assign('images',$images);
+        return $this->fetch();
+    }
+    public function master(){
         return $this->fetch();
     }
 

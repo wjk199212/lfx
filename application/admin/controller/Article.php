@@ -6,6 +6,7 @@
  * Time: 下午4:29
  */
 namespace app\admin\controller;
+use app\admin\model\admin;
 use think\Controller;
 use app\admin\model\category;
 class Article extends Controller
@@ -77,6 +78,7 @@ class Article extends Controller
      }
     }
 
+
 //    用Ajax获取文章分类
      public function ajaxCategory()
      {
@@ -93,6 +95,7 @@ class Article extends Controller
       public function lists()
       {
 //order 排序  paginate 分液器  with 关联数据库
+
          $list= \app\admin\model\article::with('category')->order('create_time DESC')->paginate(2);
 //          $list=  \app\admin\model\article::with('category')->order('create_time DESC')->paginate(1);
 //            $list = \app\admin\model\article::get(1);
